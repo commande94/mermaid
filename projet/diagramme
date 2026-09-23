@@ -1,0 +1,56 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Client" as client
+actor "Agent de voyage" as agent
+actor "Personnel d'accueil" as recep
+actor "Gérant" as gerant
+
+actor "Service de paiement" as pay << System >>
+actor "Horloge du système" as timer << Time >>
+
+rectangle "Système de Gestion Hôtelière" {
+    usecase "Consulter les disponibilités" as UC_Dispo
+    usecase "Réserver une chambre" as UC_Reserver
+    usecase "Verser des arrhes" as UC_Arrhes
+    usecase "Annuler une réservation" as UC_Annuler
+    usecase "Annuler auto si non confirmé (J-8)" as UC_AutoCancel
+    
+    usecase "Enregistrer l'arrivée (Check-in)" as UC_Checkin
+    usecase "Saisir les consommations" as UC_Conso
+    usecase "Facturer le départ (Check-out)" as UC_Checkout
+    
+    usecase "Éditer les arrivées du jour" as UC_Arrivees
+    usecase "Consulter le taux d'occupation" as UC_Stats
+    usecase "Administrer l'infrastructure et tarifs" as UC_Admin
+}
+
+' Relations Clients / Agents
+client --> UC_Dispo
+client --> UC_Reserver
+client --> UC_Annuler
+
+agent --> UC_Dispo
+agent --> UC_Reserver
+
+' Relations Personnel / Gérant
+recep --> UC_Checkin
+recep --> UC_Conso
+recep --> UC_Checkout
+recep --> UC_Arrivees
+
+gerant --> UC_Stats
+gerant --> UC_Admin
+
+' Includes / Extends
+UC_Reserver .> UC_Arrhes : <<include>>
+UC_Annuler .> UC_Arrhes : <<extend>> : remboursement selon délai
+
+' Acteurs non humains
+UC_Arrhes --> pay
+UC_Checkout --> pay
+
+timer --> UC_AutoCancel
+timer --> UC_Arrivees
+@enduml
