@@ -1,3 +1,5 @@
+```mermeid
+
 @startuml
 left to right direction
 skinparam packageStyle rectangle
@@ -54,3 +56,5 @@ UC_Checkout --> pay
 timer --> UC_AutoCancel
 timer --> UC_Arrivees
 @enduml
+
+```
