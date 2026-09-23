@@ -35,3 +35,26 @@ Admin --> ManageUsers
 Admin --> ViewReports
 
 ```
+
+```mermaid
+
+usecase-beta
+actor Customer("Customer")
+actor SupportAgent("Support agent")
+systemBoundary "E-commerce System"
+  BrowseProducts("Browse products")
+  PlaceOrder("Place order")
+  TrackOrder("Track order")
+end
+systemBoundary "Admin Panel"
+  ProcessOrders("Process orders")
+  HandleReturns("Handle returns")
+end
+Admin_Panel@{ type: package }
+Customer --> BrowseProducts
+Customer --> PlaceOrder
+Customer --> TrackOrder
+SupportAgent --> ProcessOrders
+SupportAgent --> HandleReturns
+
+```
