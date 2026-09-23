@@ -1,8 +1,9 @@
 ```mermaid
-classeDiagram
- class Heros {
-   +String nom
-   +String pseudonyme
 
- }
+classDiagram
+class Heros {
+  +String nom
+  +String pseudonyme
+}
+
 ```
